@@ -28,7 +28,13 @@
 			* {
 				white-space: normal;
 			}
+			.loader::after {
+				background: conic-gradient(#fc4913 20%, 0, transparent);
+			}
 			@media (min-width: 768px) {
+				a {
+					scroll-behavior: smooth;
+				}
 				.animate-radius.is-inview {
 					border-radius: 8rem;
 					transition: 1s border-radius;
@@ -57,13 +63,10 @@
 					transform: translateY(20%);
 					opacity: 0;
 				}
-				.es {
-					background: #fc9421;
-				}
 			}
 		</style>
-		<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js" defer></script>
 		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
 		<script>
 			tailwind.config = {
 				theme: {
@@ -80,7 +83,7 @@
 							larger: '8rem',
 						},
 						fontSize: {
-							screenSize: '25vw',
+							'10xl': '24rem',
 						},
 						colors: {
 							'spanish-red': '#fc4913',
@@ -100,24 +103,41 @@
 		</script>
 		<script src="main.js" defer></script>
 	</head>
-	<body class="box-border bg-background mt-14 md:mt-0 md:h-screen" data-scroll-container>
+	<body class="box-border bg-background mt-14 md:mt-0 md:h-screen md:overflow-hidden" data-scroll-container>
+		<div
+			class="loader fixed top-0 left-0 h-screen w-screen bg-spanish-yellow z-50 grid place-content-center after:block after:w-32 after:h-32 after:rounded-full after:border-solid after:col-span-1 after:row-span-1 after:animate-spin before:block before:bg-spanish-yellow before:h-24 before:w-24 before:rounded-full before:absolute before:left-1/2 before:top-1/2 before:transform before:-translate-x-1/2 before:-translate-y-1/2 before:z-10"
+		></div>
 		<header
-			class="bg-spanish-red min-w-full items-center backdrop-blur-xl z-10 transform left-1/2 w-screen -translate-x-1/2 top-0 fixed flex justify-between border-solid max-h-15 md:py-5 px-4 text-white container m-auto md:h-screen md:transform-none md:min-w-0 md:w-fit md:left-0 md:flex-col md:items-end md:justify-between md:px-5"
+			class="z-40 bg-spanish-red min-w-full h-14 items-center backdrop-blur-xl transform left-1/2 w-screen -translate-x-1/2 top-0 fixed flex justify-between border-solid max-h-15 md:py-5 px-4 text-white container m-auto md:h-screen md:transform-none md:min-w-0 md:w-fit md:left-0 md:flex-col md:items-end md:justify-between md:px-5"
 		>
 			<div class="flex items-end md:w-full md:flex-col md:items-center">
-				<i class="fa fa-bars text-base" aria-hidden="true"></i>
+				<i id="hamburger" class="cursor-pointer fa fa-bars text-base z-10" aria-hidden="true"></i>
 				<p class="ml-2 text-sm md:hidden">Spis treści</p>
 			</div>
-			<ul class="hidden items-end gap-4 capitalize text-xs">
-				<li><a href="#">home</a></li>
-				<li><a href="#">o praktykach</a></li>
-				<li><a href="#">elo3</a></li>
-				<li><a href="#">elo4</a></li>
-				<li><a href="#">elo5</a></li>
+			<ul
+				id="menu"
+				class="capitalize absolute h-screen w-screen bg-spanish-red -top-[100vh] left-0 transition-[top] duration-500 pt-16 px-3"
+			>
+				<li class="mb-4 cursor-pointer" data-scroll-to="home">Witaj</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S01">01 Przylot</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S02">02 Zakwaterowanie</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S03">03 Pierwsze dni w pracy</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S04">04 Wycieczka do zoo</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S05">05 Lekcje języka Hiszpańskiego</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S06">06 Zwiedzanie okolic</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S07">07 Muzeum obrazów</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S08">08 Muzeum figur</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S09">09 Oceanarium</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S10">10 Pożegnanie z pracodawcami</li>
+				<li class="mb-4 text-xl font-bold cursor-pointer" data-scroll-to="S11">11 Powrót do Polski</li>
+				<li class="mb-4 cursor-pointer" data-scroll-to="acknowledgements">Podziękowania</li>
 			</ul>
-			<img src="assets/erasmus-plus-logo.svg" class="w-14 md:hidden" alt="logo Erasmus" />
 		</header>
-		<section class="text-white bg-cover bg-right-bottom grid md:w-screen font-playfair" data-scroll-section>
+		<section
+			id="home"
+			class="text-white bg-right-bottom grid font-playfair overflow-hidden md:max-w-screen"
+			data-scroll-section
+		>
 			<div class="grid items-start justify-start content-start overflow-hidden md:h-screen md:w-screen md:items-start">
 				<video
 					class="min-w-screen col-span-full row-span-full saturate-200 z-0 md:saturate-150 md:h-screen md:w-screen object-cover"
@@ -132,7 +152,9 @@
 					data-scroll
 				>
 					<hgroup class="text-center mx-auto mt-6 w-min z-10 md:max-w-none md:mx-0" data-scroll>
-						<h1 class="uppercase decoration-white text-screenSize font-thin leading-none md:pl-9" data-scroll>HOLA</h1>
+						<h1 class="uppercase decoration-white text-8xl md:text-10xl font-thin leading-none md:pl-9" data-scroll>
+							HOLA
+						</h1>
 						<h2 class="text-sm flex capitalize justify-between md:text-xl md:pt-5 md:font-bold md:pl-12" data-scroll>
 							<span>Praktyki</span>
 							<span>Zawodowe</span>
@@ -157,7 +179,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S01" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -188,7 +210,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S02" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -230,7 +252,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S03" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -261,7 +283,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S04" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -303,7 +325,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S05" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -334,7 +356,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S06" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -376,7 +398,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S07" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -407,7 +429,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S08" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -449,7 +471,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S09" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -480,7 +502,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S10" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -524,7 +546,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="font-playfair mt-16 md:mt-0" data-scroll-section>
+		<section id="S11" class="font-playfair mt-16 md:mt-0" data-scroll-section>
 			<div class="text-center md:flex md:h-screen" data-scroll="">
 				<div
 					class="border-solid border-gray-500 border-r border-l mx-5 flex flex-col md:min-h-full md:w-104 md:pb-12"
@@ -556,14 +578,16 @@
 			</div>
 		</section>
 
-		<section
+		<footer
+			id="acknowledgements"
 			class="font-playfair font-light text-center border-t border-b border-gray-500 border-solid my-24 md:w-104 md:h-screen md:border-b md:border-l md:m-0"
 			data-scroll-section
 		>
 			<div class="py-12 md:h-full md:w-full md:grid md:place-content-center">
 				<h4 class="text-6xl" data-scroll>Gracias!</h4>
 				<p data-scroll>Dziękujemy</p>
+				<img src="/assets/erasmus-plus-logo.svg" alt="logo erasmus+" class="h-24 mx-auto mt-12" />
 			</div>
-		</section>
+		</footer>
 	</body>
 </html>
